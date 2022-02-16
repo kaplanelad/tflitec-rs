@@ -17,6 +17,7 @@ name = "tflitec"
 
 [build-dependencies]
 bindgen = "0.59.1"
+cmake = "0.1.48"
 
 [features]
 xnnpack = []
