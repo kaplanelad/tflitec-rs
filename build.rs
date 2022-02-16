@@ -21,11 +21,9 @@ fn link_libs_c<P: AsRef<Path>>(target_dir: P) {
     let build_dir = target_dir.as_ref().join("build");
     let search_paths = vec![
         "ruy-build",
-        "cpuinfo-build",
-        "ff2d-build",
+        "fft2d-build",
         "xnnpack-build",
         "farmhash-build",
-        "clog-build",
         "flatbuffers-build",
     ];
 
@@ -35,14 +33,14 @@ fn link_libs_c<P: AsRef<Path>>(target_dir: P) {
             build_dir.join("_deps").join(p).display()
         );
     }
-    println!(
-        "cargo:rustc-link-search=native={}",
-        build_dir.join("pthreadpool").display()
-    );
-    println!("cargo:rustc-link-search=native={}", build_dir.display());
 
-    // println!("cargo:rustc-link-search=native={}", build_dir.join("ruy-build").display());
-    // println!("cargo:rustc-link-search=native={}", build_dir.display());
+    let search_paths = vec!["pthreadpool", "cpuinfo", "tensorflow-lite", "clog"];
+    for p in search_paths {
+        println!(
+            "cargo:rustc-link-search=native={}",
+            build_dir.join(p).display()
+        );
+    }
 }
 
 fn main() {
