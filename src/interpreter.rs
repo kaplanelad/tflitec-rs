@@ -167,6 +167,39 @@ impl Interpreter {
         Interpreter::new(&model, options)
     }
 
+    /// Creates an [`Interpreter`] with model buffer
+    ///
+    /// # Arguments
+    ///
+    /// * `buffer`: Buffer of tensorflowlite model file
+    /// * `options`: Interpreter [`Options`]
+    ///
+    /// returns: Result<Interpreter, Error>
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use tflitec::interpreter::Interpreter;
+    /// use std::path::MAIN_SEPARATOR;
+    ///
+    /// let path = format!("tests{}add.tflite", MAIN_SEPARATOR);
+    /// let buffer = std::fs::read(&path).unwrap();
+    /// let interpreter = Interpreter::with_model_buffer(&buffer)?;
+    /// # Ok::<(), tflitec::Error>(())
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns error if TensorFlow Lite C fails internally while reading [`Model`] or creating
+    /// [`Interpreter`].
+    pub fn with_model_buffer(
+        buffer: impl AsRef<[u8]>,
+        options: Option<Options>,
+    ) -> Result<Interpreter> {
+        let model = Model::with_buffer(buffer.as_ref())?;
+        Interpreter::new(&model, options)
+    }
+
     /// Returns the total number of input [`Tensor`]s associated with the model.
     pub fn input_tensor_count(&self) -> usize {
         unsafe { TfLiteInterpreterGetInputTensorCount(self.interpreter_ptr) as usize }
