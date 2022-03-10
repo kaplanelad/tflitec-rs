@@ -5,7 +5,7 @@ Its API is very similar to that of [TensorFlow Lite Swift API].
 
 Targets below are tested. However, others may work, too.
 * iOS: `aarch64-apple-ios` and `x86_64-apple-ios`
-* MacOS: `x86_64-apple-darwin`
+* MacOS: `x86_64-apple-darwin` and `aarch64-apple-darwin`
 * Linux: `x86_64-unknown-linux-gnu`
 * Android: `aarch64-linux-android` and `armv7-linux-androideabi`
 * Windows ([see details](#Windows))
