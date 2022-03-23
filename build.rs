@@ -56,6 +56,10 @@ fn main() {
     println!("cargo:rustc-link-lib=static=flatbuffers");
     println!("cargo:rustc-link-lib=static=clog");
     println!("cargo:rustc-link-lib=static=fft2d_fftsg2d"); // println!("cargo:rustc-link-lib=tensorflowlite_c");
+    
+    if cfg!(any(target_os = "linux")) {
+      println!("cargo:rustc-link-lib=dylib=stdc++");
+    }
 
     // println!("cargo:rustc-link-lib=static=tensorflowlite_c");
     link_libs_c(build_tflite_c("tensorflow/tensorflow/lite/c"));
